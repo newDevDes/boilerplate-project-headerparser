@@ -1,4 +1,4 @@
-// server.js
+/// server.js
 // where your node app starts
 
 // init project
@@ -23,8 +23,10 @@ app.get("/", function (req, res) {
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
-
-
+app.enable('trust proxy');
+app.get('/api/whoami',function(req,res) {res.json({ipaddress: req.ip ,/*req.headers['x-forwarded-for'].split(',')[0]||req.connection.remoteAddress,*/
+                                                   language: req.headers['accept-language'] ,
+                                                   software: req.headers['user-agent']})});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
